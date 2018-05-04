@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试getElementById兼容性以及解决方法</title>
+</head>
+<body>
+	<form action="" id="form">
+		姓名:<input type="text" name="name" value="刘德华">
+		年龄:<input type="text" name="age" value="18">
+		小名:<input type="text" name="littleName" id="name" value="德华">
+		ID=id:<input type="text" id="id" value="ID=id">
+	</form>
+</body>
+</html>
+<script type="text/javascript">
+	/**
+	 * 主要测试的就是IE 6,7
+	 * @type {[type]}
+	 */
+	var little_name=document.getElementById('name');
+
+	/**
+	 *结论
+	 * # 无法区分name属性和id属性。如果name值和id的值相同会造成选择性错误。
+	 * # 不区分 字母大小写
+	 */
+	//#[1]
+	console.log(little_name.value);//日志: 刘德华 
+
+
+	var oForm=document.getElementById('form');
+	var oId=document.getElementById('id');
+
+	//#[2]
+	console.log(oForm.id);//返回id=id元素本身的toString(),实际上应该输出form    
+	
+	//#[3]
+	console.log(oForm.getAttribute('id'));//IE7下 日志: [object] 
+
+
+	/**
+	 *根据以上测试结果，应该如何来写一个兼容的通过id获取元素的方法
+	 *
+	 *
+	 * 
+	 */
+	  	
+	 function newGetElementById(el,id,ignoreId){
+	 	var sEl;
+	 	//IE类型的判断最好放在外部单独判断 这样就无需每次执行函数时判断
+	 	var isIE67=true;  
+	 	
+ 		if(typeof el=='string'){
+	 		ignoreId=id;
+	 		id=el;
+	 		el=document;
+	 	}else if(el.nodeType!=1||el!=document){
+	 		return null;
+	 	}
+	 	if(ignoreId==undefined){
+	 		ignoreId=true;
+	 	}
+	 	sEl=el.getElementById(id);
+	 	//是否忽略form 下表单元素id=id的情况存在
+	 	//主要是这种情况在开发时几乎很少出现，为了提高获取元素的效率而做了忽略
+	 	if(!isIE67){
+
+	 		if(ignoreId){
+	 			return sEl
+	 		}else{
+	 			if(sEl.nodeType==1&&sEl.attributes['id'].value==id){
+	 				return sEl;
+	 			}
+	 		}
+	 	}else{
+	 		var els=document.all[id],eli;//这里要注意下 els中包含了name==id的标签
+	 		for(var i=0;eli=els[i];i++){
+	 			console.log(els.length);
+	 			try{
+	 				//name==id 且没有id属性时再IE6,7下空 会报异常(WIN7系统测试)
+	 				if(eli.nodeType==1&&(eli.attributes['id']&&(eli.attributes['id'].value==id))){
+		 				return eli;
+		 			}	
+	 			}catch(e){
+	 				
+	 			}
+	 		}
+
+	 	}
+	 	return null;
+	}
+
+	console.log(newGetElementById('name').value+'---1');
+	//console.log(newGetElementById('name',false).value+'---2');
+
+</script>

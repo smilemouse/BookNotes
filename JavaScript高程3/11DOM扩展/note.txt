@@ -1,0 +1,102 @@
+1.querySelector和querySelectorAll区别
+	#qs返回的是匹配的第一个元素 qsa返回的一个NodeList 
+2.matchesSelector 
+	#调用元素与选择符是否匹配
+	#有很多浏览并未实现标准实现 如果调用要在方法前面加上浏览器标识 webkitMatchesSelector
+
+	function matchesSelector(element,selector){
+		if(element.matchesSelector){
+			return element.matchesSelector;
+		}else if(element.webkitMatchesSelector){
+			return element.webkitMatchesSelector;
+		}else if(element.mstMatchesSelector){
+			return element.mstMatchesSelector;
+		}else if(element.moztMatchesSelector){
+			return element.moztMatchesSelector;
+		}else{
+			throw new Error('没有该方法');
+		}
+	}
+3.元素遍历
+	childElementCount
+	firstElementChild
+	lastElementChild
+	previousElementSibiling
+	nextElementSibiling
+
+4.H5 classList 返回的是class的DOMTokenList 类似数组
+	add:ƒ add()
+	contains:ƒ contains()
+	entries:ƒ entries()
+	forEach:ƒ forEach()
+	item:ƒ item()
+	keys:ƒ keys()
+	length:(...)
+	remove:ƒ remove()
+	replace:ƒ replace()
+	supports:ƒ supports()
+	toString:ƒ toString()
+	toggle:ƒ toggle()
+	value:(...)
+	values:ƒ values()
+
+5.焦点管理 focus() hasFocus()
+
+6.HTMLDocument的变化 IE4 FF3.6 safari chrome opeara9+
+	#readyState属性 loading complete
+
+	#document.readyState=='complete'
+
+    #兼容模式
+
+		document.compatMode === CSS1Compat BackCompat
+	#head 属性
+		H5 document.head
+
+	#字符集属性
+		document.charset='UTF-8';IE SAFARI CHROME OPEAR
+		ff chrome-->document.characterset
+		IE safari -->document.defaultCharset
+
+	#自定义属性 [这部分数据是不可见的]
+		前缀data-
+		获取element.dataset['属性名称']
+
+	#innerHTML[p295]
+		-返回的值中标签可能是大写[ie opera]也可能是小写
+		-不能讲script和style插入其中 会没有效果。IE8-有条件限制 添加defer属性
+		-不是所有的标签都支持innerHTML. col colgroup frameset head html style table tbody thead tfoot tr
+	#outerHTML
+		-就是包含元素本身
+
+	#insertAdjacentHTML
+		beforebegin
+		afterbegin
+		beforeend
+		afterend
+
+	#scrollIntoView(args)
+		-将元素滚动到最上面对齐 arg=true 最下面对齐 arg=false
+
+	#文档模式[p298]
+
+	#children属性
+
+	#contains()
+		-几乎所有浏览器都支持
+		-判断元素是否是调用元素的后代
+		-compareDocumentPosition() 返回的掩码[p300]
+
+	#innerText
+		-FF不支持改属性 H5中的textContent可以代替
+		-和textContent的区别 innerText不会返回行内样式和脚本 textContent则相反
+
+	#outerText
+		-ff不支持
+		-由于这个属性会导致调用他的元素不存在，因此并不常用。
+
+	#元素滚动 safari chrome
+		-scrollIntoViewIfNeeded(args)
+		-scrollByLines(lineCount)
+		-scrollByPages(pageCount)
+

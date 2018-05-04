@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		ul{width: auto;height: auto;position: absolute;left: 30%;top: 20%;}
+		ul li{
+			float:left;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			background-color: #ccc;
+			text-align: center;
+			margin-right: 4px;
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<ul id="ul" style="text-align: center; clear: both;">
+		<li>li-1</li>
+		<li>li-2</li>
+		<li>li-3</li>
+		<li>li-4</li>
+		<li>li-5</li>
+		<li>li-6</li>
+		<li>li-7</li>
+		<li>li-8</li>
+	</ul>
+	<p id="p">你好的啊小妹妹，你今年几岁了？</p>
+	
+</body>
+</html>
+<script type="text/javascript">
+	var oUl=document.getElementsByTagName('ul')[0];
+	var oLi2=document.getElementsByTagName('li')[1];
+	var oLi3=document.getElementsByTagName('li')[2];
+	var oLi4=document.getElementsByTagName('li')[3];
+	//oUl.insertBefore(oLi3,oLi2);
+	//oUl.replaceChild(oLi2,oLi4);
+	//oUl.removeChild(oLi4);
+	var deepCloneLists=oUl.cloneNode(true);
+	var oUlAttr=oUl.attributes;
+	//var hasXmlDom=document.implementation.hasFeature('XML');
+	//console.log(oUlAttr.getNamedItem('id').value);
+
+	//oUlAttr.removeNamedItem('id');
+	//console.log(oUlAttr);
+	//console.log(oUl.getAttribute('id'));
+	
+	//var oDiv=document.createElement('<div class="div"></div>');
+	//var oIframe=document.createElement('<iframe name="iframe" src="https://www.baidu.com"></iframe>');
+	//oIframe.name='iframe';
+	//oIframe.src="https://www.baidu.com";
+	//document.body.appendChild(oIframe);
+	
+	var oForm=document.getElementById('form');
+
+	/*var oInput=document.createElement('input');
+	oInput.type="text";
+	oInput.value="nihao";*/
+
+	/*var bBtn=document.createElement('button')
+	bBtn.type='reset';
+	bBtn.innerHTML='reset';
+	oForm.appendChild(bBtn);	*/
+
+/*	var oRadio1=document.createElement('input');
+		oRadio1.type='radio';
+		oRadio1.name="sex";
+		oRadio1.value="男";
+	var oRadio2=document.createElement('input');
+		oRadio2.type='radio';
+		oRadio2.name="sex";
+		oRadio1.value="男1";
+	oForm.appendChild(oRadio1);
+	oForm.appendChild(oRadio2);*/
+
+	var oP=document.getElementById('p');
+	var oText=oP.firstChild;
+
+	oText.appendData('我今年18岁了');
+	oText.deleteData(2,5);
+	oText.insertData(2,'的啊小妹妹');
+	oText.replaceData(2,5,'的啊小妹妹...');
+	oText.splitText(2);
+	oText.substringData(0,1);
+	console.log(oText.data);
+
+
+
+</script>

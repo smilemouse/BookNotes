@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式学习</title>
+</head>
+<body>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+	/*
+	
+		基础格式
+		#var express=/pattern/flags
+		#flags:{
+			g:全局搜索 (global)
+			i:忽略大小写 (ingoreCase)
+			m:多行查找 (multiline)
+		}
+		#RegExp 实例属性
+			RegExp:{
+				global:true/false 表示是否设置了g标志
+				ingoreCase:true/false 表示是否设置了i标志
+				lastIndex:int类型 表示开始搜索下一个匹配项的字符位置，从0开始算起。
+				multiline：true/false 表示是否设置了m标志
+				soucre:正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回。
+			}
+		#RegExp 实例方法
+
+
+	 */
+	
+	 var pattern=/m/g;
+
+	 console.log(pattern.exec('abmsdmad'));
+
+
+
+</script>

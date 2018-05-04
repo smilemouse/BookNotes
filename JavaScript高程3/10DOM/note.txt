@@ -1,0 +1,343 @@
+1.Node类型
+	# Node接口除了IE其他浏览器都可以访问该接口。
+	# 节点类型由12数值常量来表示
+
+	# 属性				描述								IE	F	O	W3C
+
+	baseURI	返回节点的绝对基准 URI。						No	1	No	Yes
+	childNodes	返回节点到子节点的节点列表。				5	1	9	Yes
+	firstChild	返回节点的首个子节点。						5	1	9	Yes
+	lastChild	返回节点的最后一个子节点。					5	1	9	Yes
+	localName	返回节点的本地名称。						No	1	9	Yes
+	namespaceURI	返回节点的命名空间 URI。				No	1	9	Yes
+	nextSibling	返回节点之后紧跟的同级节点。				5	1	9	Yes
+	nodeName	返回节点的名称，根据其类型。				5	1	9	Yes
+	nodeType	返回节点的类型。							5	1	9	Yes
+	nodeValue	设置或返回节点的值，根据其类型。			5	1	9	Yes
+	ownerDocument	返回节点的根元素（document 对象）。		5	1	9	Yes
+	parentNode	返回节点的父节点。							5	1	9	Yes
+	prefix	设置或返回节点的命名空间前缀。					No	1	9	Yes
+	previousSibling	返回节点之前紧跟的同级节点。			5	1	9	Yes
+	textContent	设置或返回节点及其后代的文本内容。			No	1	No	Yes
+	text	返回节点及其后代的文本（IE 独有的属性）。		5	No	No	No
+	xml	返回节点及其后代的 XML（IE 独有的属性）。			5	No	No	No
+
+
+	# 方法				描述																			IE	F	O	W3C
+	
+	appendChild()	向节点的子节点列表的结尾添加新的子节点。											5	1	9	Yes
+	cloneNode()	复制节点。																				5	1	9	Yes
+	compareDocumentPosition()	对比两个节点的文档位置。												No	1	No	Yes
+	getFeature(feature,version)	返回一个 DOM 对象，此对象可执行带有指定特性和版本的专门的 API。	 	 	No	Yes
+	getUserData(key)	返回与此节点上的某个键相关联的对象。此对象必须首先通过使用相同的键来调用 
+						setUserData 被设置到此节点。													No	Yes
+
+	hasAttributes()	判断当前节点是否拥有属性。															No	1	9	Yes
+	hasChildNodes()	判断当前节点是否拥有子节点。														5	1	9	Yes
+	insertBefore()	在指定的子节点前插入新的子节点。													5	1	9	Yes
+	isDefaultNamespace(URI)	返回指定的命名空间 URI 是否为默认。	 	 									No	Yes
+	isEqualNode()	检查两个节点是否相等。																No	No	No	Yes
+	isSameNode()	检查两个节点是否是相同的节点。														No	1	No	Yes
+	isSupported()	返回当前节点是否支持某个特性。	 	 												9	Yes
+	lookupNamespaceURI()	返回匹配指定前缀的命名空间 URI。											No	1	No	Yes
+	lookupPrefix()	返回匹配指定命名空间 URI 的前缀。													No	1	No	Yes
+	normalize()	合并相邻的Text节点并删除空的Text节点。													5	1	9	Yes
+	removeChild()	删除（并返回）当前节点的指定子节点。												5	1	9	Yes
+	replaceChild()	用新节点替换一个子节点。															5	1	9	Yes
+	selectNodes()	用一个 XPath 表达式查询选择节点。													6	 	 	 
+	selectSingleNode()	查找和 XPath 查询匹配的一个节点。												6	 	 	 
+	transformNode()	使用 XSLT 把一个节点转换为一个字符串。												6	 	 	 
+	transformNodeToObject()	使用 XSLT 把一个节点转换为一个文档。										6	 	 	 
+	setUserData(key,data,handler)	把对象关联到节点上的一个键上。	 	 								No	Yes
+
+	# 总结常用属性方法
+		
+		childNodes
+		
+		firstChild
+		
+		lastChild
+		
+		nextSibling
+		
+		previousSibling
+		
+		parentNode
+		
+		nodeName
+		
+		nodeValue
+		
+		nodeType
+		
+		owenrDocument
+		
+		textContent(IE不支持)
+		
+		appendChild()
+		
+		insertBefore(newNode,nodePos) nodePos=null 表示插入到最底位置 否则插入nodePos元素前面
+		
+		replaceChild(newNode,needReplace) needReplace要不newNode节点替换掉的节点
+		
+		removeChild()
+		
+		cloneNode(boolean) true 表示深复制即复制节点及其子节点树。false 只复制节点本身。
+			IE下bug会复制事件。需清除。
+			IE8-深度复制时不会创建空白文档节点，回合标准浏览器的childNodes.length产生误差。
+
+2.Document 类型
+	#document对象是HTMLDocument(继承自Document对象)的一个实例。表示整个html页面。同时document是window对象的一个属性。
+		
+		nodeType:8
+		nodeName:#document,
+		nodeValue:null
+		parentNode:null
+		ownerDocument:null
+
+	#Document子节点可以使documentType Element ProcessingInstruction或者Comment 或者时两个内置的节点快捷访问方式
+		documentElement-->始终指向HTML页面中的<html>标签
+		document.body--->始终指向的是<body>标签
+		所有浏览器都支持上面的两种属相
+		doctype=document.doctype;[存在很大的兼容性问题，几乎遇不到需要使用的地方]
+
+	#doucment几个重要属性
+		document.title--->标签titile的引用
+		document.URL	页面完成的URL 
+		document.domain	页面URL的域名 可写
+
+			只能设置页面包含的域 如果框架来自同一个域不同的二级域名 设置相同了 可以解除跨域访问js 同时不能往回设置
+
+		document.referrer 来源页面的URL
+		document.anchors 带name的<a>元素
+		document.forms 所有的<form>元素
+		document.images 所有的<img>元素
+		document.links 所有带href的<a>元素
+
+3.Element类型
+	#其主要几个属性
+		nodeType:1
+		nodeName/tagName:大写标签名
+		nodeValue:null
+		parentNode:document || Element
+
+	#元素属性三个方法[属性名是不区分大小写的]
+		getAttribute()	
+
+			主要是两个地方特殊 
+				1. 获取style时是字符串不是js对象 
+				2.onclick事件时也是函数字符串
+			IE7-在获取style和onclick时是和js对象一直，这应该是一个bug	
+
+		setAttribute()
+
+			会统一将属性名称转化为小写形式。
+
+			DOM元素添加一个自定义的属性是不会自动成为元素的特性的。
+				div.mycolor='red';
+				console.log(div.getAttribute('myclolor'))//null [IE除外]
+
+			IE7- 设置class和style特性是没有任何效果的 设置事件处理程序特性时也是没有效果的 此时采用DOM属性设置
+
+			例：
+				class和className兼容方法：
+				object.setAttribute("class","content")
+				在IE8、Chrome、火狐、Opera10中都能设置成功；但是在IE7下无法设置。
+				object.setAttribute("className","content")
+				只有IE7能设置成功，但是其他浏览器均无法设置。
+				兼容方法：
+				使用 object.className="content"
+
+				style和cssText兼容方法：
+				object.setAttribute("style","position:absolute;left:10px;top:10px;")
+				在IE8、Chrome、火狐、Opera10中都能设置成功；但是在IE7下无法设置。
+				object.setAttribute("cssText","position:absolute;left:10px;top:10px;")
+				此设置方法，所有浏览器均不支持。
+				兼容方法：
+				使用 object.style.cssText="position:absolute;left:10px;top:10px;"
+				或者单独 object.style.各个属性 ，逐一进行设置。
+		
+		removeAttribute()
+
+			IE6-是不支持改属性的
+
+		attributes[只有Element类型才有改属性]
+
+			该属性中包含一个NamedNodeMap 与NodeList类似 也是一个动态集合。
+			每个特性都是由一个Attr节点表示，每个节点都是保存在NamedNodeMap中。
+
+			NamedNodeMap {0: id, 1: style, id: id, style: style, length: 2}
+				0: id
+					baseURI: "file:///E:/BookNotes/JavaScript%E9%AB%98%E7%A8%8B3/10DOM/test/001test.html"
+					childNodes: NodeList []
+					firstChild: null
+					isConnected: false
+					lastChild: null
+					localName: "id"
+					name: "id"
+					namespaceURI: null
+					nextSibling: null
+					nodeName: "id"
+					nodeType: 2
+					nodeValue: "ul"
+					ownerDocument: documentowner
+					Element: ul#ul
+					parentElement: null
+					parentNode: null
+					prefix: null
+					previousSibling: null
+					specified: true
+					textContent: "ul"
+					value: "ul"
+				id:id,//只能通过属性获取不能通过遍历获取	
+				__proto__: NamedNodeMap
+					getNamedItem: ƒ getNamedItem(name)
+					getNamedItemNS: ƒ getNamedItemNS()
+					item: ƒ item(pos)
+					length: (...)
+					removeNamedItem: ƒ removeNamedItem(name)
+					removeNamedItemNS: ƒ removeNamedItemNS()
+					setNamedItem: ƒ setNamedItem(node)
+					setNamedItemNS: ƒ setNamedItemNS()
+					constructor: ƒ NamedNodeMap()
+
+			遍历attributes时不同的浏览器出现的顺序可能不同
+			IE7-返回的是所有可能元素 包括没有指定的特性。其他浏览器只返回指定的属性。
+			这对IE7-存在的问题，IE给每个特性节点都有一个名为specified 属性 如果为true则表示html中指定了相应的特性。
+			[可以是通过setAttribute()方法来设定的] 所有未设置过的特性都是为false。其他浏览器根本不会为这类特性生成
+			对应的特性节点(这些浏览器任何特性节点specified都是为true)。
+
+		document.createElement();
+			-标准浏览器中传入的是标签名，不区分大小写。xml[xhtml]是区分大小写的
+			-在IE8-以下可以通过标签字符串同时包含属性来创建。只有IE有这个特性。
+				-oDiv=document.createElement('<div id="div0"></div>');
+				-这种创建方式能解决IE下的几种bug问题[一下描述相对的标准写法]:
+					-不能设置动态创建的<iframe>元素的name属性 
+						[IE中会是submitName="name"]
+
+					-不能通过表单的reset()方法重设动态创建的<input>元素。
+
+					-动态创建的type特性值为reset的button元素重置不了表单
+						bBtn.type='reset' 对象不支持此操作 [IE7-]
+
+					-动态创建的一批name相同的单选按钮彼此没有关系
+						[IE6下没有效果]
+4.Text类型
+	#主要几个属性
+		nodeType:3
+		nodeName:#text
+		nodeValue:节点包含的文本
+		parentNode:Element
+
+	#主要的方法
+		可以通过nodeValue属性或者data属性访问text节点包含的文本。同时多nodeValue修改也会反映到data上
+		oText.appendData('我今年18岁了'); 		结尾添加文本 text
+		oText.deleteData(2,5);					删除文本，offset count
+		oText.insertData(2,'的啊小妹妹');		插入文本
+		oText.replaceData(2,5,'的啊小妹妹...');	替换文本 offset count text
+		oText.splitText(2);						分割文本 offset
+		oText.substringData(0,1);				截取文本 offset count
+		length
+
+		document.createTextNode(text);text:可以是纯文本也可以是标签文本 
+		element.normalize()将多有文本节点合并为一个节点。结果节点nodeValue的值等于合并前每个文本节点的nodeValue的值拼起来。
+		浏览器在解析文档时永远不会创建相邻的文本节点。这种情况只有在DOM操作时会产生。
+
+5.Comment类型
+	#主要几个属性
+		nodeType:8
+		nodeName:#comment
+		nodeValue:'注释内容'
+		parentNode:Document Element
+
+		document.createComment()
+		与Text继承自同个的基类，因此用法和Text相似
+
+6.CDATASection类型
+	#主要属性
+		nodeType:4
+		nodeName:#cdata-section
+		nodeValue:区域的内容
+		parentNode:Docuemnt Element
+		-只针对XML文档表示的是CDATA区域 继承自Text类型 操作方法和Text类型相似
+		-许多浏览器会错误的解析为Commnet或者Element类型
+		-document.createCDdataSection()
+		-IE9不支持改类型
+
+7.DocumentType类型
+	-改类型的WEB浏览器中并不常用IE8-不支持改类型
+	-IE8- document.docType=null
+
+8.DcumentFragment类型
+	#主要属性
+		nodeType:11
+		nodeName:#document-fragment
+		nodeValue:null
+		parentNode:null
+		document.createDocumentFragment()
+
+9.Attr类型
+	document.createAttribute()
+
+10.动态脚本编写
+	#动态添加外部脚本函数
+		function loadScript(url){
+			var script=document.createElement('script');
+			script.type="text/javascript";
+			script.src=url;
+			document.body.appendChild(script);
+		}
+	#动态添加内部脚本代码
+		functin loadScriptString(code){
+			var script=document.createElement('script');
+			script.type='text/javascript';
+			try{
+				script.appendChild(document.createTextNode(code));//在IE中会出错。IE将script特殊 不能访问其子节点
+			}catch(e){
+				script.text=code;
+			}
+			document.body.appendChild(script);
+		}
+11动态样式
+	#动态添加外部脚本
+	
+		function loadStyles(url){
+			var link=document.createElement('link');
+			link.rel='stylesheet';
+			link.type='text/css';
+			link.href=url;
+			var head=document.getElementsByTagName('head')[0];
+			head.appendChild(link);
+		}
+
+	#动态添加内如样式代码
+
+		function loadStylesString(css){
+			var style=document.createElement('style');
+			style.type='text/css';
+			try{
+				style.appendChild(document.createTextNode(css));
+			}catch(e){
+				style.styleSheet.cssText=css;
+			}
+			var head=document.getElementsByTagName('head')[0];
+			head.appendChild(style);
+		};
+
+		-在IE下编程时重复设置同一style时可能导致浏览器崩溃。同样将cssText属性设置为空时也可能导致崩溃。
+12
+	
+
+
+
+
+
+
+
+
+		
+
+
+
+
+

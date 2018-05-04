@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简单测试下BOM对象的属性和方法</title>
+</head>
+	<body>
+		<button id="windowOpen">window.open</button>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var globalVar={};
+
+	/**
+	 * 
+	 * 窗口相对屏幕的位置
+	 * @return {[type]} [description]
+	 */
+	globalVar.windowPos=function(){
+		var ret={x:0,y:0};
+		var x=(typeof window.screenLeft=='number')?window.screenLeft:window.screenX;
+		var y=(typeof window.screenTop=='number')?window.screenTop:window.screenY;
+		return {x:x,y:y};
+	}
+
+	//console.log(globalVar.windowPos());
+
+	globalVar.BowserViewSize=function(){
+		var pageWidth=window.innerWidth;
+		var pageHeight=window.innerHeight;
+
+		if(typeof pageWidth!='number'){
+			console.log(document.compatMode=='CSS1Compat');
+			if(document.compatMode=='CSS1Compat'){
+				pageWidth=document.documentElement.clientWidth;
+				pageHeight=document.documentElement.clientHeight;
+			}else{
+				pageWidth=document.body.clientWidth;
+				pageHeight=document.body.clientHeight;
+			}
+		}
+
+		return {pageWidth:pageWidth,pageHeight:pageHeight}
+	}
+
+	//console.log(globalVar.BowserViewSize()['pageWidth']+'---'+globalVar.BowserViewSize()['pageHeight']);
+
+	var oBtn_windowOpen=document.getElementById('windowOpen');
+
+	globalVar.windowOpen=function(){
+		window.open('https://www.baidu.com','_blank','location=yes');
+	}
+
+	oBtn_windowOpen.onclick=function(){
+		globalVar.windowOpen();
+	}
+
+	globalVar.confirm=function(){
+		if(confirm('你是男的吗')){
+			alert('是的');
+		}else{
+			alert('不是的');
+		}
+	}
+	//globalVar.confirm();
+	globalVar.prompt=function(){
+		alert(prompt('你的名字',''));
+	}
+
+	
+	// globalVar.prompt();
+
+	//window.print();
+	// window.find();
+	
+	globalVar.getLocation=function(){
+		var obj=window.location;
+
+		for(var name in obj){
+			console.log(name+":"+obj[name]);
+		}
+
+
+	}
+	
+	//globalVar.getLocation();
+
+	globalVar.getNavigatore=function(){
+		var obj=window.navigator.plugins;
+
+
+		console.log(obj);
+
+
+	}
+
+	// globalVar.getNavigatore();
+	
+
+	console.log(oBtn_windowOpen.nodeValue);
+
+
+
+</script>

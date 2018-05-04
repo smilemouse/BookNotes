@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM扩展</title>
+</head>
+<body>
+	<ul id="ul" class="ul0 ul1 ul2 ul3 ul4">
+		<li class="li1" style="list-style: none;">li-1</li>
+		<script type="text/javascript">
+			console.log(123);
+		</script>
+		<li class="li2">li-2</li>
+		<li class="li3">li-3</li>
+		<li class="li4">li-4</li>
+		<li class="li5">li-5</li>
+		<li class="li6">li-6</li>
+		<li class="li7">li-7</li>
+		<li class="li8">li-8</li>
+	</ul>
+</body>
+</html>
+<script type="text/javascript">
+	oUl=document.getElementById('ul');
+	oLi=document.getElementsByTagName('li')[0];
+	/*var oUl=document.querySelector('#ul');
+	var oUl1=document.querySelectorAll('#ul');
+	var oL=document.querySelector('li');
+	var oL1=document.querySelectorAll('li');*/
+	//var entries=oUl.classList.entries();
+	oUl.scrollIntoView();
+	console.log(oUl.innerText);
+</script>
